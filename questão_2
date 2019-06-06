@@ -1,5 +1,4 @@
 #include <stdio.h>
-
   typedef struct{
     int chave;
     int topo;
@@ -10,13 +9,23 @@ void inserir_elementos(estrutura_pilha *pilha, int chave){
 
 }
 
-void imprimir(pilha) 
+/*void inicializar(pilha* p)
+{
+	p -> topo = -1;	
+}*/
+
+void quantidade_elementos(estrutura_pilha pilha) {
+    pilha.topo++;
+    printf("Número de elementos: %d\n", pilha.topo);
+}
+
+void imprimir(estrutura_pilha pilha) 
 {
 int i;
-printf (“Elementos:\n”)
+printf ("Elementos:\n");
 	for (i=pilha.topo; i>=0; i--)
 	{
-	printf (“%i\n”, estrutura_pilha.chave); 
+	printf ("%i\n", pilha.elem[i]); 
 	}
 }
 
@@ -29,5 +38,7 @@ int main(){
   pilha.elem[4] = 5;
   pilha.topo = 4;
   pilha.chave = 5;
+  imprimir(pilha);
+  quantidade_elementos(pilha);
   return 0;
 }
