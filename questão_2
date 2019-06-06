@@ -10,6 +10,12 @@ void inserir_elementos(estrutura_pilha *pilha, int chave){
 
 }
 
+void inicializar(pilha *p)
+{
+	p -> topo = -1;	
+}
+
+
 void imprimir(pilha) 
 {
 int i;
