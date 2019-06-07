@@ -89,7 +89,8 @@ elem *eliminar_elemento(elem *elem1, int chave_eliminada){ /*Recebe como segundo
 }
 
 int main(){
-
+  int chave_eliminar;
+  char funcao;
   elem *elem1 = malloc(1*sizeof(elem)); /* Alocando memória para o primeiro elemento da lista*/
   elem *ponteiro_inicio = elem1; /*Guardando no ponteiro para início o endereço do primeiro elemento da lista*/
   (*elem1).chave = 12; /*Atribuindo valor da chave do primeiro elemento*/
@@ -104,9 +105,35 @@ int main(){
   (*elem4).chave = 15;
   (*elem4).ponteiro_prox = NULL;/*Não há mais elementos*/
 
-  ponteiro_inicio = eliminar_elemento(ponteiro_inicio, 12); /*A função vai retornar o endereço do elemento de início*/
-  mostrar_elementos(ponteiro_inicio);
-  printf("%d\n", contador(ponteiro_inicio));
+  printf("Qual função gostaria de realizar?\nPressione:\n");
+  printf("A para inicializar;\n");
+  printf("B para contar elementos;\n");
+  printf("C para imprimir as chaves dos elementos;\n");
+  printf("D para inserir um novo elemento na pilha;\n");
+  printf("E para remover um elemento da pilha e guarda-lo em outro lugar;\n");
+  printf("F para reinicializar a pilha;\n");
+  scanf("%c", &funcao);
+
+  if(funcao == 'A'){
+
+  }
+  else if(funcao == 'B'){
+    printf("%d\n", contador(ponteiro_inicio));
+  }
+  else if(funcao == 'C'){
+    mostrar_elementos(ponteiro_inicio);
+  }
+  else if(funcao == 'D'){
+
+  }
+  else if(funcao == 'E'){
+    printf("Qual elemento deve ser eliminado?\n");
+    scanf("%d", &chave_eliminar);
+    eliminar_elemento(ponteiro_inicio, chave_eliminar);
+  }
+  else if(funcao == 'F'){
+
+  }
 
   return 0;
 }
