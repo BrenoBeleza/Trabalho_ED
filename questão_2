@@ -6,18 +6,27 @@
     int elem[10];
   }estrutura_pilha;
 
-void inserir_elementos(estrutura_pilha *pilha, int chave){
+  void imprimir(estrutura_pilha pilha){
+  int i;
+  printf ("Elementos:\n");
+  	for (i=pilha.topo; i>=0; i--)
+  	{
+  	printf ("%i\n", pilha.elem[i]);
+  	}
+  }
 
-}
-
-void imprimir(pilha) 
-{
-int i;
-printf (“Elementos:\n”)
-	for (i=pilha.topo; i>=0; i--)
-	{
-	printf (“%i\n”, estrutura_pilha.chave); 
-	}
+void inserir_elementos(estrutura_pilha *pilha){
+  int chave; /*chave a ser inserida na pilha*/
+  if((*pilha).topo == 9){
+    printf("A pilha já está cheia!\n");
+  }
+  else{
+    printf("Qual elemento deve ser inserido?\n");
+    scanf("%d", &chave);
+    (*pilha).topo++;
+    (*pilha).chave = chave;
+    (*pilha).elem[(*pilha).topo] = chave;
+  }
 }
 
 int main(){
@@ -29,5 +38,8 @@ int main(){
   pilha.elem[4] = 5;
   pilha.topo = 4;
   pilha.chave = 5;
+  inserir_elementos(&pilha);
+  imprimir(pilha);
   return 0;
+
 }
