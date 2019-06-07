@@ -5,6 +5,10 @@
     int topo;
     int elem[10];
   }estrutura_pilha;
+  
+  void inicializar(estrutura_pilha *pilha){
+    
+  }
 
   void imprimir(estrutura_pilha pilha){
   int i;
