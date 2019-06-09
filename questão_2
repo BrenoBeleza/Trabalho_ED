@@ -6,16 +6,19 @@
     int elem[10];
   }estrutura_pilha;
 
+/*____________________LETRA A________________*/
 void inicializar(estrutura_pilha *pilha){
   (*pilha).topo = -1;
 }
 
+/*____________________LETRA B________________*/
 void quantidade_elementos(estrutura_pilha pilha) {
     pilha.topo++;
     printf("Número de elementos: %d\n", pilha.topo);
 }
 
-  void imprimir(estrutura_pilha pilha){
+/*____________________LETRA C________________*/
+void imprimir(estrutura_pilha pilha){
   int i;
   printf ("Elementos:\n");
   	for (i=pilha.topo; i>=0; i--)
@@ -24,6 +27,7 @@ void quantidade_elementos(estrutura_pilha pilha) {
   	}
   }
 
+/*____________________LETRA D________________*/
 void inserir_elementos(estrutura_pilha *pilha){
   int chave; /*chave a ser inserida na pilha*/
   if((*pilha).topo == 9){
@@ -48,13 +52,13 @@ int main(){
   pilha.elem[4] = 5;
   pilha.topo = 4;
   pilha.chave = 5;
-  printf("Qual função gostaria de realizar?\nPressione:");
+  printf("Qual função gostaria de realizar?\n");
   printf("A para inicializar;\n");
   printf("B para contar elementos;\n");
   printf("C para imprimir as chaves dos elementos;\n");
   printf("D para inserir um novo elemento na pilha;\n");
   printf("E para remover um elemento da pilha e guarda-lo em outro lugar;\n");
-  printf("F para reinicializar a pilha;\n");
+  printf("F para reinicializar a pilha;\nDigite(maiusculo):\n");
   scanf("%c", &funcao);
 
   if(funcao == 'A'){
