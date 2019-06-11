@@ -29,3 +29,25 @@ int main(){
 
   return 0;
 }
+
+void excluir(estrutura_fila *fila)
+{
+	int i;
+	
+	/*Verificar se a lista nao esta vazia*/
+	
+	if(inicio == -1)
+	{
+		printf("Erro: A fila esta vazia!");
+	} else
+	{
+		
+		for(i =0; i <= inicio -1; i++)
+		{
+			*fila.elem[i] = *fila.elem[i+1];	
+		}	
+		topo —;
+		
+		printf("Elemento excluido com sucesso!");
+	}
+}
