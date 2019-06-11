@@ -5,6 +5,7 @@ typedef struct aux{
   int chave;
   struct aux *e;
   struct aux *d;
+  float campo_extra;
 }estrutura_no;
 
 
@@ -15,22 +16,27 @@ int main(){
   estrutura_no *no4 = malloc(1*sizeof(estrutura_no));
   estrutura_no *no5 = malloc(1*sizeof(estrutura_no));
   (*no_raiz).chave = 15;
+  (*no_raiz).campo_extra = 23.5;
   (*no_raiz).e = no2;
   (*no_raiz).d = no3;
 
   (*no2).chave = 10;
+  (*no2).campo_extra = 25.5;
   (*no2).e = NULL;
   (*no2).d = no4;
 
   (*no3).chave = 20;
+  (*no3).campo_extra = 27.5;
   (*no3).e = no5;
   (*no3).d = NULL;
 
   (*no4).chave = 12;
+  (*no4).campo_extra = 29.5;
   (*no4).e = NULL;
   (*no4).d = NULL;
 
   (*no5).chave = 17;
+  (*no5).campo_extra = 31.5;
   (*no5).e = NULL;
   (*no5).d = NULL;
 
