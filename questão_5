@@ -8,8 +8,29 @@ typedef struct aux{
   float campo_extra;
 }estrutura_no;
 
+void inserir_elemento(estrutura_no *no_raiz, int chave_inserida, float campo_extra_inserido){
+
+
+  if(no_raiz == NULL){
+    (*no_raiz).chave = chave_inserida;
+    (*no_raiz).campo_extra = campo_extra_inserido;
+    (*no_raiz).e = NULL;
+    (*no_raiz).d = NULL;
+    return;
+  }
+  if(chave_inserida > (*no_raiz).chave){
+    inserir_elemento((*no_raiz).d);
+  }
+  else if(chave_inserida < (*no_raiz).chave){
+    inserir_elemento((*no_raiz).e);
+  }
+  return;
+}
 
 int main(){
+  char funcao;
+  int chave_inserida;
+  float campo_extra_inserido;
   estrutura_no *no_raiz = malloc(1*sizeof(estrutura_no));
   estrutura_no *no2 = malloc(1*sizeof(estrutura_no));
   estrutura_no *no3 = malloc(1*sizeof(estrutura_no));
@@ -40,5 +61,30 @@ int main(){
   (*no5).e = NULL;
   (*no5).d = NULL;
 
+  printf("Qual função gostaria de realizar?\n");
+  printf("A para inserir um no;\n");
+  printf("B para contar o numero de nos;\n");
+  printf("C para imprimir as chaves dos nos;\n");
+  printf("D para visualizar o campo extra de um no;\nDigite(maiusculo):\n");
+  scanf("%c", &funcao);
+
+  if(funcao == 'A'){
+
+    printf("Qual chave deve ser inserida?\n");
+    scanf("%d", &chave_inserida);
+    printf("Qual o valor do campo extra para a chave inserida?\n");
+    scanf("%f", &campo_extra_inserido);
+
+    inserir_elemento(no_raiz, chave_inserida, campo_extra_inserido);
+  }
+  else if(funcao == 'B'){
+
+  }
+  else if(funcao == 'C'){
+
+  }
+  else if(funcao == 'D'){
+    
+  }
   return 0;
 }
