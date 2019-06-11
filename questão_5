@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <malloc.h>
+
+typedef struct aux{
+  int chave;
+  struct aux *e;
+  struct aux *d;
+}estrutura_no;
+
+
+int main(){
+  estrutura_no *no_raiz = malloc(1*sizeof(estrutura_no));
+  estrutura_no *no2 = malloc(1*sizeof(estrutura_no));
+  estrutura_no *no3 = malloc(1*sizeof(estrutura_no));
+  estrutura_no *no4 = malloc(1*sizeof(estrutura_no));
+  estrutura_no *no5 = malloc(1*sizeof(estrutura_no));
+  (*no_raiz).chave = 15;
+  (*no_raiz).e = no2;
+  (*no_raiz).d = no3;
+
+  (*no2).chave = 10;
+  (*no2).e = NULL;
+  (*no2).d = no4;
+
+  (*no3).chave = 20;
+  (*no3).e = no5;
+  (*no3).d = NULL;
+
+  (*no4).chave = 12;
+  (*no4).e = NULL;
+  (*no4).d = NULL;
+
+  (*no5).chave = 17;
+  (*no5).e = NULL;
+  (*no5).d = NULL;
+
+  return 0;
+}
