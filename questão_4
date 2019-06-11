@@ -6,14 +6,24 @@ typedef struct{
   int quantidade_elementos;
 }estrutura_fila;
 
+inserir_elemento(estrutura_fila *fila){
+  if((*fila).quantidade_elementos == 10){
+    printf("A fila está cheia, não há como inserir.\n");
+  }
+  else{
+    *fila.inicio
+  }
+}
+
+
 int main(){
   estrutura_fila fila;
-  fila.elem[2] = 32;
-  fila.elem[3] = 33;
-  fila.elem[4] = 34;
-  fila.elem[5] = 35;
-  fila.elem[6] = 36;
-  fila.inicio = 2;
+  fila.elem[0] = 32;
+  fila.elem[1] = 33;
+  fila.elem[2] = 34;
+  fila.elem[3] = 35;
+  fila.elem[4] = 36;
+  fila.inicio = 0;
   fila.quantidade_elementos = 5;
 
 
