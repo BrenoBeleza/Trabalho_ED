@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 
-
+    
 typedef int TipoChave;
 
 typedef struct {
@@ -17,7 +17,12 @@ typedef struct Celula_str {
 
 typedef struct {
     Apontador Primeiro, Ultimo;
-}TipoLista
+}TipoLista;
+
+typedef struct aux {
+  struct aux *ponteiro_prox;
+  int chave;
+}elem; /*Definindo a estrutura de um elemento da lista*/
 
 void Inicializar_Lista(TipoLista *l){
     l->Primeiro = NULL;
@@ -44,10 +49,6 @@ void Inserir_Ordenado (TipoLista *lista, TipoChave inserido){
     return
 }
 
-typedef struct aux {
-  struct aux *ponteiro_prox;
-  int chave;
-}elem; /*Definindo a estrutura de um elemento da lista*/
 int cont = 0;
 
 int contador(elem *elem1){ /*Conta o número de elementos na lista*/
@@ -132,7 +133,7 @@ int main(){
     eliminar_elemento(ponteiro_inicio, chave_eliminar);
   }
   else if(funcao == 'F'){
-
+    reinicializar(ponteiro_inicio);
   }
 
   return 0;
