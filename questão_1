@@ -110,9 +110,9 @@ int main(){
   printf("A para inicializar;\n");
   printf("B para contar elementos;\n");
   printf("C para imprimir as chaves dos elementos;\n");
-  printf("D para inserir um novo elemento na pilha;\n");
-  printf("E para remover um elemento da pilha e guarda-lo em outro lugar;\n");
-  printf("F para reinicializar a pilha;\n");
+  printf("D para inserir um novo elemento na fila;\n");
+  printf("E para remover um elemento da fila e guarda-lo em outro lugar;\n");
+  printf("F para reinicializar a fila;\n");
   scanf("%c", &funcao);
 
   if(funcao == 'A'){
