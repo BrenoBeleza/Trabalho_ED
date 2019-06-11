@@ -88,3 +88,47 @@ int main(){
   }
   return 0;
 }
+
+int contagem (estrutura_no *no_raiz)
+{
+	int i, resultado, quantEsquerda, quantDireita, flag = 0;
+	
+	quantEsquerda = 0;
+	quantDireita = 0;
+	
+	while(flag == 0)
+	{
+		if(*no_raiz.d == NULL)
+		{
+			/*Condicao de saida do looping*/
+			flag = 1;	
+		}else
+		{
+			quantDireita ++;
+			
+			/*apontando para o proximo a direita*/
+			contagem(estrutura_no *no_raiz.d);
+		}
+	}
+	
+	/*Resetando a flag*/
+	flag = 0;
+	
+	while(flag == 0)
+	{
+		if(*no_raiz.e == NULL)
+		{
+			/*condicao de saida do looping*/
+			flag = 1;
+		}else{
+			quantEsquerda ++;
+			
+			/*apontando para o proximo a esqeurda*/	
+			contagem(estrutura_no *no_raiz.e);
+		}
+	}
+	
+	resultado = quantDireita + quantEsquerda;
+	
+	return resultado;	
+}
