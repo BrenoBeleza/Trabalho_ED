@@ -27,6 +27,16 @@ void inserir_elemento(estrutura_no *no_raiz, int chave_inserida, float campo_ext
   return;
 }
 
+void mostrar_chave(estrutura_no *no_raiz) {
+    if(no_raiz!=NULL) {
+        printf("%d", (*no_raiz).chave);
+        printf("(");
+        mostrar_chave((*no_raiz).e);
+        mostrar_chave((*no_raiz).d);
+        printf(")");
+    }
+}
+
 int main(){
   char funcao;
   int chave_inserida;
@@ -81,6 +91,9 @@ int main(){
 
   }
   else if(funcao == 'C'){
+  
+    mostrar_chave(no_raiz);
+    printf("\n");
 
   }
   else if(funcao == 'D'){
