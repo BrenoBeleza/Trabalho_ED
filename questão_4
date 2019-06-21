@@ -1,23 +1,65 @@
 #include <stdio.h>
 
+void limpa_buffer(){
+  char c;
+  while((c = getchar()) != '\n' && c != EOF);
+} /*Funcao alternativa para a limpeza de buffer*/
+
 typedef struct{
   int elem[10];
   int inicio; /* posição de início*/
   int quantidade_elementos;
 }estrutura_fila;
 
-inserir_elemento(estrutura_fila *fila){
-  if((*fila).quantidade_elementos == 10){
-    printf("A fila está cheia, não há como inserir.\n");
-  }
-  else{
-    *fila.inicio
+void mostrar_elementos(estrutura_fila fila){
+  int i;
+  printf("Os elementos sao:\n");
+  for( i = 0; i < fila.quantidade_elementos; i++){
+    printf("%d\n", fila.elem[i]);
   }
 }
 
+void inserir_elemento(estrutura_fila *fila){
+  int chave;
+
+  if((*fila).quantidade_elementos == 10){
+    printf("A fila esta cheia, nao ha como inserir.\n");
+  }
+  else{
+    printf("Digite a chave a ser inserida:\n");
+    scanf("%d", &chave);
+    limpa_buffer();
+
+    (*fila).elem[(*fila).quantidade_elementos] = chave;
+    (*fila).quantidade_elementos++;
+    printf("O elemento foi inserido com sucesso!\n");
+  }
+  return;
+}
+
+void excluir(estrutura_fila *fila){
+	int i;
+
+	/*Verificar se a lista nao esta vazia*/
+
+	if((*fila).quantidade_elementos == 0){
+		printf("Erro: A fila esta vazia!");
+	}
+  else{
+
+		for(i = (*fila).inicio; i <= ((*fila).inicio + (*fila).quantidade_elementos -1); i++)
+		{
+			(*fila).elem[i] = (*fila).elem[i+1];
+		}
+		(*fila).quantidade_elementos --;
+
+		printf("Elemento excluido com sucesso!");
+	}
+}
 
 int main(){
   estrutura_fila fila;
+  char funcao;
   fila.elem[0] = 32;
   fila.elem[1] = 33;
   fila.elem[2] = 34;
@@ -26,6 +68,24 @@ int main(){
   fila.inicio = 0;
   fila.quantidade_elementos = 5;
 
+  do{
+    printf("\nQual funcao quer realizar?\n");
+    printf("A) Mostrar elementos da fila;\n");
+    printf("B) Inserir um elemento na fila;\n");
+    printf("C) Excluir um elemento da fila;\n");
+    printf("D) Sair.\nDigite(maiusculo):\n");
+    scanf("%c", &funcao);
+    limpa_buffer();
+    if(funcao == 'A'){
+      mostrar_elementos(fila);
+    }
+    else if(funcao == 'B'){
+      inserir_elemento(&fila);
+    }
+    else if(funcao == 'C'){
+      excluir(&fila);
+    }
+  }while(funcao != 'D');
 
   return 0;
 }
