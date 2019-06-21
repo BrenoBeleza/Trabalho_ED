@@ -27,6 +27,14 @@ void inserir_elemento(estrutura_no *no_raiz, int chave_inserida, float campo_ext
   return;
 }
 
+int contagem(estrutura_no *pRaiz)
+{
+   if(pRaiz == NULL)
+        return 0;
+   else
+        return 1 + contagem(pRaiz->e) + contagem(pRaiz->d);
+}
+
 int main(){
   char funcao;
   int chave_inserida;
