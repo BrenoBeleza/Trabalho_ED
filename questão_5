@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <malloc.h>
 
+void limpa_buffer(){
+  char c;
+  while((c = getchar()) != '\n' && c != EOF);
+} /*Funcao alternativa para a limpeza de buffer*/
+
 typedef struct aux{
   int chave;
   struct aux *e;
@@ -8,21 +13,63 @@ typedef struct aux{
   float campo_extra;
 }estrutura_no;
 
-void inserir_elemento(estrutura_no *no_raiz, int chave_inserida, float campo_extra_inserido){
+void mostrar_chave(estrutura_no *no_raiz) {
+    if(no_raiz!=NULL) {
+        printf("%d", (*no_raiz).chave);
+        printf("(");
+        mostrar_chave((*no_raiz).e);
+        mostrar_chave((*no_raiz).d);
+        printf(")");
+    }
+}
 
+int contagem(estrutura_no *pRaiz){
+   if(pRaiz == NULL){
+     return 0;
+   }
+   else{
+     return 1 + contagem(pRaiz->e) + contagem(pRaiz->d);
+   }
+}
+
+estrutura_no *inserir_elemento(estrutura_no *no_raiz, int chave_inserida, float campo_extra_inserido){
 
   if(no_raiz == NULL){
+    no_raiz = malloc(1*sizeof(estrutura_no));
     (*no_raiz).chave = chave_inserida;
     (*no_raiz).campo_extra = campo_extra_inserido;
     (*no_raiz).e = NULL;
     (*no_raiz).d = NULL;
-    return;
+    return no_raiz;
   }
   if(chave_inserida > (*no_raiz).chave){
-    inserir_elemento((*no_raiz).d);
+    (*no_raiz).d = inserir_elemento((*no_raiz).d, chave_inserida, campo_extra_inserido);
   }
   else if(chave_inserida < (*no_raiz).chave){
-    inserir_elemento((*no_raiz).e);
+    (*no_raiz).e = inserir_elemento((*no_raiz).e, chave_inserida, campo_extra_inserido);
+  }
+  return no_raiz;
+}
+
+void ver_campo_extra(estrutura_no *no_raiz, int chave, int *contador){
+
+  if(no_raiz == NULL){
+    printf("A arvore esta vazia.\n");
+    return;
+  }
+  if((*no_raiz).chave == chave){
+    printf("o campo extra desse no e: %.2f\n", (*no_raiz).campo_extra);
+    *contador = 1;
+    return;
+  }
+
+  else if((*no_raiz).chave < chave && (*no_raiz).d != NULL){
+    ver_campo_extra((*no_raiz).d, chave, contador);
+    return;
+  }
+  else if((*no_raiz).chave > chave && (*no_raiz).e != NULL){
+    ver_campo_extra((*no_raiz).e, chave, contador);
+    return;
   }
   return;
 }
@@ -31,6 +78,7 @@ int main(){
   char funcao;
   int chave_inserida;
   float campo_extra_inserido;
+  int contador = 0;
   estrutura_no *no_raiz = malloc(1*sizeof(estrutura_no));
   estrutura_no *no2 = malloc(1*sizeof(estrutura_no));
   estrutura_no *no3 = malloc(1*sizeof(estrutura_no));
@@ -61,30 +109,49 @@ int main(){
   (*no5).e = NULL;
   (*no5).d = NULL;
 
-  printf("Qual função gostaria de realizar?\n");
-  printf("A para inserir um no;\n");
-  printf("B para contar o numero de nos;\n");
-  printf("C para imprimir as chaves dos nos;\n");
-  printf("D para visualizar o campo extra de um no;\nDigite(maiusculo):\n");
-  scanf("%c", &funcao);
+  do{
+    contador = 0;
+    printf("\nQual funcao gostaria de realizar?\n");
+    printf("A para inserir um no;\n");
+    printf("B para contar o numero de nos;\n");
+    printf("C para imprimir as chaves dos nos;\n");
+    printf("D para visualizar o campo extra de um no;\n");
+    printf("E para sair.\nDigite(maiusculo):\n");
+    scanf("%c", &funcao);
+    limpa_buffer();
 
-  if(funcao == 'A'){
+    if(funcao == 'A'){
 
-    printf("Qual chave deve ser inserida?\n");
-    scanf("%d", &chave_inserida);
-    printf("Qual o valor do campo extra para a chave inserida?\n");
-    scanf("%f", &campo_extra_inserido);
+      printf("Qual chave deve ser inserida?\n");
+      scanf("%d", &chave_inserida);
+      limpa_buffer();
+      printf("Qual o valor do campo extra para a chave inserida?\n");
+      scanf("%f", &campo_extra_inserido);
+      limpa_buffer();
 
-    inserir_elemento(no_raiz, chave_inserida, campo_extra_inserido);
-  }
-  else if(funcao == 'B'){
+    no_raiz = inserir_elemento(no_raiz, chave_inserida, campo_extra_inserido);
+    }
+    else if(funcao == 'B'){
+      printf("%d\n", contagem(no_raiz));
+    }
+    else if(funcao == 'C'){
+      mostrar_chave(no_raiz);
+      printf("\n");
+    }
+    else if(funcao == 'D'){
+      printf("Digite a chave cujo campo extra deve ser impresso:\n");
+      scanf(" %d", &chave_inserida);
+      limpa_buffer();
+      ver_campo_extra(no_raiz, chave_inserida, &contador);
+      if(contador == 1){
 
-  }
-  else if(funcao == 'C'){
+      }
+      else if(contador == 0){
+        printf("Este elemento nao esta na arvore\n");
+      }
 
-  }
-  else if(funcao == 'D'){
-    
-  }
+      printf("\n");
+    }
+  }while(funcao != 'E');
   return 0;
 }
