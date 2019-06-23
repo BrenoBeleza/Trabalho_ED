@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <malloc.h>
 
+void limpa_buffer(){
+  char c;
+  while((c = getchar()) != '\n' && c != EOF);
+} /*Funcao alternativa para a limpeza de buffer*/
+
 int contador = 0;
 
 typedef struct{
@@ -80,9 +85,11 @@ elem *inserir_elemento(elem *elem4){
   int chave_inserida, campo_extra_inserido = 0;
   printf("Digite a chave a ser inserida:\n");
   scanf("%d", &chave_inserida);
+  limpa_buffer();
   do{
     printf("Agora digite o valor do campo extra(entre zero e dez):\n");
     scanf("%d", &campo_extra_inserido);
+    limpa_buffer();
     if(campo_extra_inserido < 0 || campo_extra_inserido > 10){
       printf("O valor do campo extra tem que estar entre zero e dez\n");
     }
@@ -108,6 +115,7 @@ void excluir_elemento(elem *elem1, FILA *inicio_fim, pilha_estrutura *pilha, ele
       printf("B) Deslocar elementos da pilha para o final da fila e continuar processo;\n");
       printf("C) Deixar a pilha cheia.\n");
       scanf("%c", &funcao_pilha);
+      limpa_buffer();
       if(funcao_pilha == 'A'){
         (*pilha).topo_e = -1;
         (*pilha).topo_d = 50;
@@ -143,6 +151,7 @@ void excluir_elemento(elem *elem1, FILA *inicio_fim, pilha_estrutura *pilha, ele
       printf("B) Deslocar elementos da pilha para o final da fila e continuar processo;\n");
       printf("C) Deixar a pilha cheia e eliminar o elemento excluido.\nDigite(maiusculo):\n");
       scanf("%c", &funcao_pilha);
+      limpa_buffer();
       if(funcao_pilha == 'A'){
         (*pilha).topo_e = -1;
         (*pilha).topo_d = 50;
@@ -176,23 +185,24 @@ void excluir_elemento(elem *elem1, FILA *inicio_fim, pilha_estrutura *pilha, ele
   printf("C) Contar os elementos cujo campo extra seja menor ou igual a 5;\n");
   printf("D) Contar os elementos cujo campo extra seja maior que 5.\nDigite(maiusculo):\n");
   scanf(" %c", &funcao_pilha);
+  limpa_buffer();
 
   if(funcao_pilha == 'A'){
     if((*pilha).topo_d == 50 && (*pilha).topo_e == -1){
-      printf("A pilha está vazia!\n");
+      printf("A pilha esta vazia!\n");
     }
     else{
-      printf("A pilha não está vazia!\n");
+      printf("A pilha não esta vazia!\n");
     }
   }
   else if(funcao_pilha == 'B'){
     printf("a pilha tem um total de %d elementos\n", (((*pilha).topo_e + 1) + (50 -(*pilha).topo_d)));
   }
   else if(funcao_pilha == 'C'){
-    printf("a pilha tem %d elementos cujo campo extra é menor ou igual a 5\n", ((*pilha).topo_e+1));
+    printf("a pilha tem %d elementos cujo campo extra e menor ou igual a 5\n", ((*pilha).topo_e+1));
   }
   else if(funcao_pilha == 'D'){
-    printf("a pilha tem %d elementos cujo campo extra é maior que 5\n", (50 - (*pilha).topo_d));
+    printf("a pilha tem %d elementos cujo campo extra e maior que 5\n", (50 - (*pilha).topo_d));
   }
 
   return;
@@ -243,37 +253,42 @@ int main(){
   pilha.topo_d = 50;
   pilha.topo_e = -1;
 
-  printf("Qual função gostaria de realizar?\n");
-  printf("A para inicializar;\n");
-  printf("B para contar elementos;\n");
-  printf("C para imprimir os campos extras dos elementos;\n");
-  printf("D para imprimir as chaves dos elementos;\n");
-  printf("E para inserir um elemento;\n");
-  printf("F para remover um elemento;\n");
-  printf("G para reinicializar.\nDigite(maiusculo):\n");
-  scanf("%c", &funcao);
+  do{
+    printf("\nQual funcao gostaria de realizar?\n");
+    printf("A para inicializar;\n");
+    printf("B para contar elementos;\n");
+    printf("C para imprimir os campos extras dos elementos;\n");
+    printf("D para imprimir as chaves dos elementos;\n");
+    printf("E para inserir um elemento;\n");
+    printf("F para remover um elemento;\n");
+    printf("G para reinicializar;\n");
+    printf("H para sair.\nDigite(maiusculo):\n");
+    scanf("%c", &funcao);
+    limpa_buffer();
 
-  if(funcao == 'A'){
-    inicializar(&inicio_fim);
-  }
-  else if(funcao == 'B'){
-    printf("%d\n", contar_elementos((inicio_fim).ponteiro_inicio));
-  }
-  else if(funcao == 'C'){
-    mostrar_campos_extras((inicio_fim).ponteiro_inicio);
-  }
-  else if(funcao == 'D'){
-    mostrar_elementos((inicio_fim).ponteiro_inicio);
-  }
-  else if(funcao == 'E'){
-    (inicio_fim).ponteiro_fim = inserir_elemento(inicio_fim.ponteiro_fim);
-  }
-  else if(funcao == 'F'){
-    excluir_elemento(inicio_fim.ponteiro_inicio, &inicio_fim, &pilha, inicio_fim.ponteiro_fim);
-  }
-  else if(funcao == 'G'){
-    reinicializar(inicio_fim.ponteiro_inicio, &inicio_fim);
-  }
+    if(funcao == 'A'){
+      inicializar(&inicio_fim);
+    }
+    else if(funcao == 'B'){
+      printf("%d\n", contar_elementos((inicio_fim).ponteiro_inicio));
+    }
+    else if(funcao == 'C'){
+      mostrar_campos_extras((inicio_fim).ponteiro_inicio);
+    }
+    else if(funcao == 'D'){
+      mostrar_elementos((inicio_fim).ponteiro_inicio);
+    }
+    else if(funcao == 'E'){
+      (inicio_fim).ponteiro_fim = inserir_elemento(inicio_fim.ponteiro_fim);
+    }
+    else if(funcao == 'F'){
+      excluir_elemento(inicio_fim.ponteiro_inicio, &inicio_fim, &pilha, inicio_fim.ponteiro_fim);
+    }
+    else if(funcao == 'G'){
+      reinicializar(inicio_fim.ponteiro_inicio, &inicio_fim);
+    }
+  }while(funcao != 'H');
+  mostrar_elementos((inicio_fim).ponteiro_inicio);
 
   return 0;
 }
