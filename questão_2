@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+void limpa_buffer(){
+  char c;
+  while((c = getchar()) != '\n' && c != EOF);
+} /*Funcao alternativa para a limpeza de buffer*/
+
   typedef struct{
     int chave;
     int topo;
@@ -32,18 +37,41 @@ void inserir_elementos(estrutura_pilha *pilha){
   int chave; /*chave a ser inserida na pilha*/
   if((*pilha).topo == 9){
     printf("A pilha já está cheia!\n");
+    return;
   }
   else{
     printf("Qual elemento deve ser inserido?\n");
     scanf("%d", &chave);
+    limpa_buffer();
     (*pilha).topo++;
     (*pilha).chave = chave;
     (*pilha).elem[(*pilha).topo] = chave;
+    return;
+  }
+}
+/*____________________LETRA E_______________*/
+void eliminar_elementos(estrutura_pilha *pilha, estrutura_pilha *aux){
+  if((*pilha).topo == -1){
+    printf("A pilha esta vazia, nao ha como eliminar\n");
+    return;
+  }
+  else{
+    (*aux).topo++;
+    (*aux).elem[(*aux).topo] = (*pilha).elem[(*pilha).topo];
+    (*aux).chave = (*pilha).elem[(*pilha).topo];
+    (*pilha).topo--;
+    printf("O elemento foi eliminado com sucesso.\n");
+    return;
   }
 }
 
+/*____________________LETRA F________________*/
+void reinicializar(estrutura_pilha *pilha){
+  (*pilha).topo = -1;
+}
 int main(){
   estrutura_pilha pilha;
+  estrutura_pilha aux; /*pilha auxiliar para guardar elementos eliminados*/
   char funcao;
   pilha.elem[0] = 1;
   pilha.elem[1] = 2;
@@ -52,34 +80,45 @@ int main(){
   pilha.elem[4] = 5;
   pilha.topo = 4;
   pilha.chave = 5;
-  printf("Qual função gostaria de realizar?\n");
-  printf("A para inicializar;\n");
-  printf("B para contar elementos;\n");
-  printf("C para imprimir as chaves dos elementos;\n");
-  printf("D para inserir um novo elemento na pilha;\n");
-  printf("E para remover um elemento da pilha e guarda-lo em outro lugar;\n");
-  printf("F para reinicializar a pilha;\nDigite(maiusculo):\n");
-  scanf("%c", &funcao);
+  aux.topo = -1;
 
-  if(funcao == 'A'){
-    inicializar(&pilha);
-  }
-  else if(funcao == 'B'){
-    quantidade_elementos(pilha);
-  }
-  else if(funcao == 'C'){
-    imprimir(pilha);
-  }
-  else if(funcao == 'D'){
-    inserir_elementos(&pilha);
-  }
-  else if(funcao == 'E'){
 
-  }
-  else if(funcao == 'F'){
+  do{
+    printf("\nQual funcao gostaria de realizar?\n");
+    printf("A para inicializar;\n");
+    printf("B para contar elementos;\n");
+    printf("C para imprimir as chaves dos elementos;\n");
+    printf("D para inserir um novo elemento na pilha;\n");
+    printf("E para remover um elemento da pilha e guarda-lo em outro lugar;\n");
+    printf("F para reinicializar a pilha;\n");
+    printf("G para sair;\nDigite(maiusculo):\n\n");
+    scanf("%c", &funcao);
+    limpa_buffer();
 
-  }
+    if(funcao == 'A'){
+      inicializar(&pilha);
+    }
+    else if(funcao == 'B'){
+      quantidade_elementos(pilha);
+    }
+    else if(funcao == 'C'){
+      if(pilha.topo == -1){
+        printf("Nao ha elementos\n");
+      }
+      else{
+        imprimir(pilha);
+      }
+    }
+    else if(funcao == 'D'){
+      inserir_elementos(&pilha);
+    }
+    else if(funcao == 'E'){
+      eliminar_elementos(&pilha, &aux);
+    }
+    else if(funcao == 'F'){
+      reinicializar(&pilha);
+    }
+  }while(funcao != 'G');
 
   return 0;
-
 }
